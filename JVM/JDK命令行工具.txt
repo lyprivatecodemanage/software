@@ -1,0 +1,16 @@
+JPS:只用于列出java的进程，查看java进程启动类，传入参数和JVM参数等信息
+		参数：	-q只输出进程ID
+				-m用于输出传递给java进程的参数
+				-l用于输出主函数的完整的路径
+				-v可以显示传递给JVM的参数
+
+
+Jstat：用于观察java应用程序运行时信息的工具
+		jstat -<option>[-t][-h<lines>]<vmid>[<interval>[<count>]]
+		option
+		-class:显示ClassLoader的相关信息
+
+		-t：输出信息前加一个Timestamp列，显示程序的运行时间
+		-h：可以在周期性数据输出时，输出多少行数据后，跟着输出一个表头信息
+		interval 用于指定输出统计数据的周期，单位毫秒
+		count 用于指定一共输出多少次数据

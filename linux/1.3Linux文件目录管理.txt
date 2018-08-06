@@ -1,0 +1,268 @@
+Linux文件目录管理
+	
+切换目录：
+		#cd
+			cd /home/liye  切换到跟目录下home/liye目录
+			cd liye		   切换到当前目录下liye目录
+			cd ..		   切换到上级目录
+			cd			   切换到家目录
+			cd /		   切换到根目录
+
+查看完整目录名：
+		#pwd
+
+
+创建目录：
+		#mkdir [option] <目录名称>
+		[root@centos01 ~]# mkdir /tmp/bj	在根目录下的tmp目录下创建bj目录
+		[root@centos01 ~]# mkdir sh			在当前目录下创建sh目录
+		[root@centos01 ~]# mkdir /linux 	在根目录下创建linux目录
+		[root@centos01 ~]# mkdir -p /uplooking/linux （-p）层级创建目录，在根目录下创建uplooking目录，然后在uplooking目录下创建linux目录
+
+
+查看目录：
+		#	ls	[option] <目录名称>
+		[root@centos01 ~]# ls				查看当前目录下的文件
+		[root@centos01 ~]# ls /tmp			查看指定目录下的文件
+选项：
+-l 		以详细信息的方式显示文件信息
+-h      更人性化的显示，就是文件大小后面带了单位
+-d		查看当前目录的权限
+-a 		显示隐藏文件
+-t 		文件按最近修改时间降序排列
+-S 		文件按大小降序排列
+
+[root@centos01 ~]# ls -l
+总用量 4
+-rw-------. 1 root root 1446 8月   4 06:52 anaconda-ks.cfg
+
+	-	文件
+	d	目录
+	l 	软连接文件（link）
+	b 	块设备文件（block），硬盘、硬盘分区、U盘、光盘
+	c 	字符设备文件（character） 键盘、鼠标、显示器
+
+[root@centos01 ~]# ls -l  /root/anaconda-ks.cfg       ######查看指定文件的权限
+-rw-------. 1 root root 1446 8月   4 06:52 /root/anaconda-ks.cfg
+
+[root@centos01 ~]# ls -lh /root/anaconda-ks.cfg 	  ###### -h更人性化的显示，就是文件大小后面带了单位
+-rw-------. 1 root root 1.5K 8月   4 06:52 /root/anaconda-ks.cfg
+
+
+2、统计文件目录大小
+
+[root@centos01 ~]# du -sh /etc/passwd/
+4.0K	/etc/passwd/
+[root@centos01 ~]# du -sh /etc/
+31M	/etc/
+[root@centos01 ~]# du -ah /etc/
+
+
+3、创建文件
+
+# touch <文件名称>
+	linux里面区分大小写
+
+	创建1.mp3到100.mp3
+
+	#touch /tmp/{1..100}.mp3
+
+	创建1.jpg,3.jpg,9.jpg,创建不连续的文件
+	#touch /tmp/{1,3,9}.jpg
+
+	#mkdir -p caiwu/2017-{1..12}  在当前目录下创建caiwu目录，并在caiwu目录下创建2017-1到2017-12,十二个连续的目录
+
+
+
+
+[liye@centos01 ~]$ date
+2018年 08月 04日 星期六 15:44:23 CST
+[liye@centos01 ~]$ date +%F
+2018-08-04
+[liye@centos01 ~]$ date +%T
+15:44:41
+[liye@centos01 ~]$ date +%F-%T
+2018-08-04-15:45:40
+
+命令引用：
+
+方式1：
+	$(command)
+[liye@centos01 ~]$ touch $(date +%F-%T).log
+
+方式2：
+	反引号`command`
+[liye@centos01 ~]$ touch `date +%F-%T`.log
+
+4、复制文件目录
+
+#cp [option] 源文件 目标文件
+
+[root@centos01 /]# mkdir /{linux,windows}
+[root@centos01 /]# ls
+bin   dev  home  lib64  media  opt   root  sbin  sys  usr  windows
+boot  etc  lib   linux  mnt    proc  run   srv   tmp  var
+[root@centos01 /]# touch /linux/{1,2,3}.txt
+[root@centos01 /]# ls /linux
+1.txt  2.txt  3.txt
+[root@centos01 /]# cp /linux/1.txt /windows/
+[root@centos01 /]# ls /windows/
+1.txt
+[root@centos01 /]# cp /linux/2.txt /windows/2.jpg
+[root@centos01 /]# ls /windows/
+1.txt  2.jpg
+[root@centos01 /]# cp /linux /windows
+cp: 略过目录"/linux"
+[root@centos01 /]# ls /windows
+1.txt  2.jpg
+
+选项：
+
+-r 		复制目录时
+[root@centos01 /]# cp -r /linux /windows
+[root@centos01 /]# ls /windows
+1.txt  2.jpg  linux
+[root@centos01 /]# ls /windows/linux
+1.txt  2.txt  3.txt
+
+-f 		强制覆盖
+
+5、移动文件目录
+
+# mv 源文件 目标文件
+
+[root@centos01 /]# mv /linux/3.txt /linux/33.txt    #####重命名的效果
+
+6、删除文件目录
+
+# rm [option] 文件名称
+
+[root@centos01 /]# rm /linux/33.txt
+rm：是否删除普通空文件 "/linux/33.txt"？yes
+
+删除目录下所有的文件，保留目录
+[root@centos01 /]# rm /linux/*
+
+选项：
+
+-r 		删除目录时
+
+[root@centos01 /]# rm -r /windows/
+
+-f 		强制删除目录 
+
+[root@centos01 /]# rm -rf /linux/
+
+7、统计文件的行数
+
+[root@centos01 /]# wc -l /etc/passwd
+20 /etc/passwd
+[root@centos01 /]# wc /etc/passwd
+ 20  28 889 /etc/passwd
+
+ 20:文件的行数
+ 28：文件里面一共多少个单词
+ 889：文件里面一共多少个字符
+
+
+
+
+ 8、查看文件内容 ------  cat/more/less/head/tail    只能查看文本文件
+
+
+# cat 文件名称（适合查看文件内容比较少的文件）
+
+[root@centos01 /]# cat -n /etc/fstab
+
+选项：
+	-n ：给每一个行加一个行号
+
+[root@centos01 /]# cat /etc/redhat-release      查看linux发行版本
+
+# more 文件名称
+# less 文件名称 
+（适合查看未知内容的文件，分页显示，回车键一行一行的显示，空格键按命令窗口高度一页一页翻页，more不能向上翻页，less可以向上翻页，退出：q）
+
+# head 文件名称
+查看文件的头
+
+选项：
+	-n 指定行数
+	# head -n 3 文件名称
+	不写-n，默认查看前10行
+
+# tail 文件名称
+查看文件的尾
+
+	选项：
+	-n 指定行数
+	# tail -n 2 文件名称
+	不写-n，默认查看后10行
+
+
+
+9、查看文件类型
+ #file 文件名称 
+
+ #which 文件名称 
+ 	查看文件绝对路径
+
+
+管道符： |
+
+# head -n 5 /etc/passwd | tail -n 1
+	将前面的命令结果传递给后面的命令去执行
+
+
+10、查找文件或目录
+
+#find 路径 查找方式
+
+按文件名称查找：
+	-name
+[root@centos01 /]# find /etc/ -name "*.conf" | wc -l
+查找etc目录下所有.conf的文件，统计数量
+
+按文件大小查找：
+	-size
+[root@centos01 /]# find /etc/ -size +1M
+查找etc目录下大于1M的文件
+[root@centos01 /]# find /etc/ -size +500k
+查找etc目录下大于500k的文件
+
+文件大小单位：G M 大写 k小写
+
+
+
+按照修改时间查询：
+	-mtime
+[root@centos01 /]# find / -mtime +7    >>>>>>>>7天前
+
+[root@centos01 /]# find / -mtime -7    >>>>>>>>7天内
+
+按照文件类型查找:
+	-type
+[root@centos01 /]# find / -type 
+
+d:目录 b:块设备文件 c:字符设备文件 l：软连接
+
+[root@centos01 /]# find /dev/ -type b
+
+[root@centos01 /]# find /dev/ -type l
+
+-	文件
+d	目录
+l 	软连接文件（link）
+b 	块设备文件（block），硬盘、硬盘分区、U盘、光盘
+c 	字符设备文件（character） 键盘、鼠标、显示器
+
+
+复合条件:
+
+[root@centos01 /]# find / -mtime +7 -a -size +100k       #######   -a = and     #######
+查找修改时间大于7天并且文件大小大于100kb的文件
+
+-exec选项执行后继续操作
+[root@centos01 /]# find /bj/ -name "*.txt" -exec rm -rf {} \;
+
+[root@centos01 /]# find /bj/ -name "*.txt" -exec cp {} /tmp \;

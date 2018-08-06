@@ -1,0 +1,31 @@
+Centos 7.2系统安装
+
+Linux目录结构：
+	/		根目录
+		/bin, /sbin, /usr/bin, /usr/sbin  可执行程序（二进制程序）
+		/lib,/lib64						  库文件   .os   （库文件是为了保证程序正常运行）
+		/boot							  启动分区（内核，启动配置文件）
+		/etc							  应用程序的配置文件	*conf
+		/home							  普通用户的家目录/宿主目录(除了root之外的用户)
+			（比如建立一个tom用户 会在home下出现/home/tom目录，此目录就是tom用户的家目录）
+			tom 	/home/tom
+			jerry	/home/jerry
+		/root							  root用户的家目录/宿主目录
+		/dev							  设备文件目录（键盘，鼠标，U盘等等设备）
+		/proc,	/sys					  伪根系统
+
+命令提示符：
+			[root@localhost /]# 
+
+				root 	用户名
+				#		管理员		$		普通用户
+				localhost	计算机名称
+				~		是一个变量，代表当前用户的家目录
+
+
+1、查看主机名：		#hostname
+	修改主机名：		#hostnamectl set-hostname  主机名
+2、查看IP地址：		#ifconfig/#ip/#ip addr
+	关机：			#poweroff
+3、远程连接主机
+	#ssh <IP地址>

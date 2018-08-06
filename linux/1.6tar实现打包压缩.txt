@@ -1,0 +1,168 @@
+文件目录压缩/解压缩
+
+文件压缩/解压缩 --------- gzip/bzip2/xz
+
+
+1）gzip
+
+压缩：
+
+[root@centos01 /]# gzip /linux/a.txt
+
+[root@centos01 /]# file /linux/a.txt.gz
+
+解压缩：
+
+[root@centos01 /]# gzip -d /linux/a.txt.gz
+
+
+
+bzip2
+
+压缩：
+
+[root@centos01 /]# bzip2 /linux/a.txt
+
+[root@centos01 /]# file /linux/a.txt.bz2
+
+解压缩：
+
+[root@centos01 /]# bzip2 -d /linux/a.txt.bz2
+
+
+
+3）xz
+
+压缩：
+
+[root@centos01 /]# xz /linux/a.txt
+
+[root@centos01 /]# file /linux/a.txt.xz
+
+解压缩：
+
+[root@centos01 /]# xz -d /linux/a.txt.xz
+
+
+创建打包文件 ---- tar
+
+
+1）创建打包文件			*.tar
+
+# tar cf 打包文件名称 源文件
+
+	c: create 创建
+	f: file 文件
+[root@centos01 /]# tar cf /linux/file01.tar /linux/
+
+2）解包：
+# tar xf 打包文件名称 [-C 解压到目录名称]          --------------- -C 目录名称不写时，解压到当前目录
+
+[root@centos01 ~]# tar xf /windows/file01.tar -C /linux/
+
+3）查看包中的文件
+option： -tvf
+
+[root@centos01 ~]# tar -tvf /linux/file01.tar
+
+
+调用gzip实现压缩/解压缩
+
+# tar czf 打包文件名称 源文件
+
+	-z: 调用gzip  -j: bzip2   -J:xz
+
+[root@centos01 ~]# tar czf /linux/file01.tar.gz /linux/*
+
+解压缩 : xzf
+
+[root@centos01 ~]# tar xzf /linux/file* -C /linux/
+
+压缩效率： xz > bzip2 > gzip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

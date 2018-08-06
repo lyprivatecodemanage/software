@@ -1,0 +1,173 @@
+过滤文件内容 --- grep
+
+# grep [option] "pattern" 文件名称
+
+[root@centos01 /]# grep "root" /linux/a.txt
+
+正则表达式的元字符
+
+1）匹配单个字符的元字符
+
+	.		任意单个字符
+
+	[root@centos01 /]# grep "r..t" /linux/a.txt
+
+	[abc]	或者
+
+	[root@centos01 /]# grep "r[aA]t" /linux/a.txt
+
+	-		连续的字符范围
+	[a-z]	[A-Z]	[a-zA-Z]	[0-9]	[a-zA-Z0-9]
+
+	[root@centos01 ~]# grep "r[a-z]t" /linux/a.txt
+
+	[root@centos01 ~]# grep "r[0-9]t" /linux/a.txt
+
+	[root@centos01 ~]# grep "r[a-zA-Z]t" /linux/a.txt
+
+	^		取反
+
+	[root@centos01 ~]# grep "r[^0-9]t" /linux/a.txt
+
+
+特殊字符集：
+	[[:punct:]]		任意单个标点
+	[[:space:]]		任意单个空白字符：一个空格，或一个Tab
+
+	[root@centos01 /]# grep "r[[:punct:]]t" /linux/a.txt
+	[root@centos01 /]# grep "r[[:space:]]t" /linux/a.txt
+
+
+2）匹配字符出现的位置
+
+^string				以string开头
+
+[root@centos01 /]# grep "^root" /linux/a.txt
+
+[root@centos01 ~]# grep "^root" /linux/a.txt
+[root@centos01 ~]# grep "^[rbh]" /linux/a.txt
+[root@centos01 ~]# grep "^[^rbh]" /linux/a.txt
+
+string$				以string结尾
+
+[root@centos01 ~]# grep "bash$" /etc/passwd
+
+[root@centos01 ~]# grep "nologin$" /etc/passwd | wc -l
+
+^$					空行：没有任何字符，空格和Tab也算字符
+
+[root@centos01 ~]# grep "^$" /etc/fstab
+
+[root@centos01 ~]# grep "^$" /etc/fstab | wc -l
+1
+
+[root@centos01 ~]# ls -l /etc | grep "^d"
+
+
+
+
+
+3）匹配字符出现的次数
+
+*			匹配其前一个字符出现任意次数
+
+		.*	任意字符
+
+[root@centos01 /]# grep "ab*" /linux/a.txt
+
+=============  \:转义字符
+\?			0次或者1次		表示前一个字符可有可无
+
+[root@centos01 /]# grep "ab\?" /linux/a.txt
+
+
+\+			1次或者多次		最少1次
+
+[root@centos01 /]# grep "ab\+" /linux/a.txt
+
+\{n\}		精确匹配数字n次
+
+[root@centos01 /]# grep "ab\{2\}" /linux/a.txt
+
+
+\{2,5\}		最少2次，最多5次
+
+[root@centos01 /]# grep "sb\{2,5\}" /linux/a.txt
+
+
+\{2,\}		最少2次
+
+[root@centos01 /]# grep "ab\{2,\}" /linux/a.txt
+
+
+\(\)		分组   \(ab\)\+
+
+[root@centos01 /]# grep "\(ab\)\{2,\}" /linux/a.txt
+
+
+
+
+
+grep命令选项（option）：
+
+-i				忽略大小写
+
+[root@centos01 /]# grep -i "^r" /linux/a.txt
+
+-o 				仅显示符合正表达式的内容，不在显示整行
+
+[root@centos01 /]# grep -0 "root" /linux/a.txt
+
+-v 				反向过滤
+
+[root@centos01 /]# grep -v "^#" /etc/fstab
+
+-e 				根据多个条件过滤文本
+
+[root@centos01 ~]# grep -e "^$" -e "^#" /etc/fstab
+
+[root@centos01 ~]# grep -v -e "^$" -e "^#" /etc/fstab    ----上一个命令反向过滤
+
+
+-E 				支持扩展正则表达式
+
+[root@centos01 /]# grep -E "(ab){2,}" /linux/a.txt       ----不需要转义字符
+
+[root@centos01 /]# grep -E "vmx|svm" /proc/cpuinfo		 ---- 使用|时，必须使用-E，该条命令查看cpu是否支持虚拟化
+
+
+-A n 			同时显示符合条件后n行
+
+[root@centos01 ~]# ifconfig ens33 | grep -A 2 "netmask"
+
+-B n 			同时显示符合条件前n行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+Linux系统的安装
+	
+Linux
+	主要适用于服务器		http://www.netcraft.com/
+
+优势：
+	1.开源 open Source
+	2.更大化地发挥硬件资源性能
+
+Linux系统组成：
+	内核		kernel		http://www.kernel.org/
+	应用程序
+
+Linux系统发行版本Release
+	RHEL 	红帽企业版 5,6,7
+	Centos			  5,6,7
+	Fedora
+
+	SUSE,	Debian，Ubuntn，Solaris
